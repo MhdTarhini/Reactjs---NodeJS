@@ -1,8 +1,22 @@
-import React from "react";
+import React, {useEffect, useState} from 'react';
+// import {Link} from 'react-router-dom';
 
-function Tweets (){
+function Tweet() {
+    useEffect( () => {
+        fetchItems();
+    }, []);
+
+    const [items, setItems] = useState([]);
+
+    const fetchItems = async () => {
+        const data = await fetch('/tweets');
+        const items = await data.json();
+        setItems(items);
+    };
+
     return(
         <section>
+            
             <div class="container-fluid">
                 <h1 class="mt-5">Tweets</h1>
                 <form method="POST" action="/addTweet">
@@ -14,7 +28,7 @@ function Tweets (){
                     </div>
                 </form>
 
-                {/* {
+                {
                 items.map(item => (
                     <div class="row padding">
                         <div class="alert alert-info rounded-pill" role="alert">
@@ -22,10 +36,10 @@ function Tweets (){
                         </div>
                     </div>       
                 ))
-                } */}
+                }
             </div>
         </section>
-    )
+    );
 }
 
-export default Tweets
+export default Tweet;
